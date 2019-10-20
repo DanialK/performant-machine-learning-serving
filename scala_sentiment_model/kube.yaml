@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentiment_model_scala
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sentiment_model_scala
+  template:
+    metadata:
+      labels:
+        app: sentiment_model_scala
+    spec:
+      containers:
+      - name: sentiment_model_scala
+        image: TODO
+        resources:
+          requests:
+            cpu: "2"
+            memory: 8235205Ki
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sentiment_model_scala_http
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+  selector:
+    app: sentiment_model_scala
